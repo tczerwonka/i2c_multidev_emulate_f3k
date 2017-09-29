@@ -1,9 +1,9 @@
 #include <Wire.h>
 
 void setup() {
-    Wire.begin(0x11 | 0x12);       // Adr 11 and 12 are used for Alt and Speed by Spectrum DX
+    Wire.begin(0x4E | 0x4C | 0x5C | 0x5A );       
     Wire.onRequest(requestEvent);  // register callback function
-    TWAMR = (0x11 | 0x12) << 1;    // set filter for given adr
+    TWAMR = (0x4E | 0x4C | 0x5C | 0x5A ) << 1;    // set filter for given adr
 }
 
 void loop() {
@@ -13,8 +13,13 @@ void loop() {
 
 void requestEvent() {
     int adr = TWDR >> 1;  // move 1 bit to align I2C adr
-    if (adr == 0x12)      // check for altitude request at adr 12
-        Wire.write(16); // send buffer
-    if (adr == 0x11)      // check for speed request at adr 11
-        Wire.write(16); // send buffer
+    if (adr == 0x4E)      // check for request from 0x4E
+        Wire.write(0xAB); // send buffer
+    if (adr == 0x4C)      
+        Wire.write(0xAB); 
+    if (adr == 0x5C)      
+        Wire.write(0xAB); 
+    if (adr == 0x5A)      
+        Wire.write(0xAB); 
+        
 }
