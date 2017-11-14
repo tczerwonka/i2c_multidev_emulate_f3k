@@ -21,21 +21,39 @@
 // .Error reading PA100 IC4 (I2C 0x5A).  Val read was: 0.  (Should have been: 0xAB) Error: 0
 // ..setupPA error: 4Error detecting PA
 //
+// to
+//
+//
 //  -and-
-// IC2
-// Slave 0x2C received: ''
-// IC16 PA
-// Slave 0x27 received: ''
-// Slave 0x27 received: '⸮'
-// Slave 0x27 received: '⸮'
-// IC13 PA
-// Slave 0x26 received: ''
-// Slave 0x26 received: '⸮'
-// Slave 0x26 received: '⸮'
-// IC3 PA
-// Slave 0x2E received: ''
-// IC4 PA
-// Slave 0x2D received: ''
+//Target 0x27 received: '1FFF99AC'
+//Target 0x27 received: '1FFF99AC'
+//Target 0x27 received: '1FFF99AC'
+//IC16 0x27 received: '1FFF99AC'
+//Target 0x27 received: '1FFF99AC'
+//Target 0x27 received: '1FFF99AC'
+//Target 0x27 received: '1FFF99AC'
+//Target 0x26 received: '1FFF99AC'
+//Target 0x26 received: '1FFF99AC'
+//Target 0x26 received: '1FFF99AC'
+//IC13 0x26 received: '1FFF99AC'
+//Target 0x26 received: '1FFF99AC'
+//Target 0x26 received: '1FFF99AC'
+//Target 0x26 received: '1FFF99AC'
+//Target 0x26 received: '1FFF99AC'
+//Target 0x2E received: '1FFF99AC'
+//IC3 0x2E received: '1FFF99AC'
+//Target 0x2E received: '1FFF99AC'
+//Target 0x2E received: '1FFF99AC'
+//Target 0x2E received: '1FFF99AC'
+//Target 0x2E received: '1FFF99AC'
+//Target 0x2D received: '1FFF99AC'
+//IC4 0x2D received: '1FFF99AC'
+//Target 0x2D received: '1FFF99AC'
+//Target 0x2D received: '1FFF99AC'
+//Target 0x2D received: '1FFF99AC'
+//Target 0x2D received: '1FFF99AC'
+
+
 
 //
 // 12nov2017
