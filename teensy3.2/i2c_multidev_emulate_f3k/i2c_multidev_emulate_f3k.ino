@@ -72,9 +72,7 @@ void setup()
     pinMode(LED_BUILTIN,OUTPUT); // LED
 
     Wire.begin(I2C_SLAVE, 0x26, 0x27, I2C_PINS_18_19, I2C_PULLUP_EXT, 400000);
-    Wire1.begin(I2C_SLAVE, 0x2D, 0x2E, I2C_PINS_18_19, I2C_PULLUP_EXT, 400000);
-
-//    Wire1.begin(I2C_SLAVE, 0x2D, 0x2E, I2C_PINS_16_17, I2C_PULLUP_EXT, 400000);
+    Wire1.begin(I2C_SLAVE, 0x2D, 0x2E, I2C_PINS_29_30, I2C_PULLUP_EXT, 400000);
 
     // Data init
     received = 0;
