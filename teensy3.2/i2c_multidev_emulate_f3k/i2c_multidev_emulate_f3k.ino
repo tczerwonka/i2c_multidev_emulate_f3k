@@ -76,6 +76,14 @@ Target 0x27 received: 0x03 00 00
 Target 0x26 received: 0x02 20 00 
 */
 
+
+//0x26 is PCA9555 on sheet 3 -- LPF and atu/attn/fan/tx
+//0x27 is PCA9555 on sheet 6 -- tuner, output 0 is L, output 1 is C
+
+
+
+
+
 #include <i2c_t3.h>
 #include "device_def.h"
 
@@ -123,9 +131,31 @@ void loop()
     // print received data
     if(received) {
         digitalWrite(LED_BUILTIN,HIGH);
-        Serial.printf("Target 0x%02X received: ", target);  
-        PrintHex8((uint8_t*)databuf, 3);
-        Serial.printf("\n");
+
+	switch (target) {
+		case IC16:
+			decode_ic16();
+		break;
+
+		case IC13:
+			decode_ic13();
+		break;
+
+		case IC3:
+			decode_ic3();
+		break;
+
+		case IC4:
+			decode_ic4();
+		break;
+
+		default:
+        		Serial.printf("Unknown 0x%02X received: ", target);  
+        		PrintHex8((uint8_t*)databuf, 3);
+        		Serial.printf("\n");
+		break;
+	}
+
         received = 0;
         digitalWrite(LED_BUILTIN,LOW);
     }
@@ -219,5 +249,25 @@ void requestEvent1(void)
   }
 }
 
+
+void decode_ic16(void)
+{
+        PrintHex8((uint8_t*)databuf, 2);
+}
+
+void decode_ic13(void)
+{
+        PrintHex8((uint8_t*)databuf, 2);
+}
+
+void decode_ic3(void)
+{
+        PrintHex8((uint8_t*)databuf, 2);
+}
+
+void decode_ic4(void)
+{
+        PrintHex8((uint8_t*)databuf, 2);
+}
 
 
