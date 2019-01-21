@@ -21,99 +21,6 @@
 // .Error reading PA100 IC4 (I2C 0x5A).  Val read was: 0.  (Should have been: 0xAB) Error: 0
 // ..setupPA error: 4Error detecting PA
 //
-// to
-//
-//
-//  -and-
-//Target 0x27 received: '1FFF99AC'
-//Target 0x27 received: '1FFF99AC'
-//Target 0x27 received: '1FFF99AC'
-//IC16 0x27 received: '1FFF99AC'
-//Target 0x27 received: '1FFF99AC'
-//Target 0x27 received: '1FFF99AC'
-//Target 0x27 received: '1FFF99AC'
-//Target 0x26 received: '1FFF99AC'
-//Target 0x26 received: '1FFF99AC'
-//Target 0x26 received: '1FFF99AC'
-//IC13 0x26 received: '1FFF99AC'
-//Target 0x26 received: '1FFF99AC'
-//Target 0x26 received: '1FFF99AC'
-//Target 0x26 received: '1FFF99AC'
-//Target 0x26 received: '1FFF99AC'
-//Target 0x2E received: '1FFF99AC'
-//IC3 0x2E received: '1FFF99AC'
-//Target 0x2E received: '1FFF99AC'
-//Target 0x2E received: '1FFF99AC'
-//Target 0x2E received: '1FFF99AC'
-//Target 0x2E received: '1FFF99AC'
-//Target 0x2D received: '1FFF99AC'
-//IC4 0x2D received: '1FFF99AC'
-//Target 0x2D received: '1FFF99AC'Target 0x27 received: '1FFF98A0' count: '02'
-Target 0x27 received: '1FFF98A0' count: '02'
-Target 0x27 received: '1FFF98A0' count: '01'
-IC16 0x27 received: '1FFF98A0' sent 0xAB
-Target 0x27 received: '1FFF98A0' count: '02'
-Target 0x27 received: '1FFF98A0' count: '02'
-Target 0x27 received: '1FFF98A0' count: '02'
-Target 0x26 received: '1FFF98A0' count: '02'
-Target 0x26 received: '1FFF98A0' count: '02'
-Target 0x26 received: '1FFF98A0' count: '01'
-asdf
-IC13 0x26 received: '1FFF98A0' sent 0xAB
-Target 0x26 received: '1FFF98A0' count: '02'
-Target 0x26 received: '1FFF98A0' count: '02'
-Target 0x26 received: '1FFF98A0' count: '02'
-Target 0x26 received: '1FFF98A0' count: '02'
-Target 0x2E received: '1FFF98A0' count: '02'
-IC3 0x2E received: '1FFF98A0' sent 0xAB
-Target 0x2E received: '1FFF98A0' count: '02'
-Target 0x2E received: '1FFF98A0' count: '02'
-Target 0x2E received: '1FFF98A0' count: '02'
-Target 0x2E received: '1FFF98A0' count: '02'
-Target 0x2D received: '1FFF98A0' count: '02'
-IC4 0x2D received: '1FFF98A0' sent 0xAB
-Target 0x2D received: '1FFF98A0' count: '02'
-Target 0x2D received: '1FFF98A0' count: '02'
-Target 0x2D received: '1FFF98A0' count: '02'
-Target 0x2D received: '1FFF98A0' count: '02'
-//Target 0x2D received: '1FFF99AC'
-//Target 0x2D received: '1FFF99AC'
-//Target 0x2D received: '1FFF99AC'
-
-//20jan2019
-//Target 0x27 received: '1FFF98A0' count: '02'
-//Target 0x27 received: '1FFF98A0' count: '02'
-//Target 0x27 received: '1FFF98A0' count: '01'
-//IC16 0x27 received: '1FFF98A0' sent 0xAB
-//Target 0x27 received: '1FFF98A0' count: '02'
-//Target 0x27 received: '1FFF98A0' count: '02'
-//Target 0x27 received: '1FFF98A0' count: '02'
-//Target 0x26 received: '1FFF98A0' count: '02'
-//Target 0x26 received: '1FFF98A0' count: '02'
-//Target 0x26 received: '1FFF98A0' count: '01'
-//asdf
-//IC13 0x26 received: '1FFF98A0' sent 0xAB
-//Target 0x26 received: '1FFF98A0' count: '02'
-//Target 0x26 received: '1FFF98A0' count: '02'
-//Target 0x26 received: '1FFF98A0' count: '02'
-//Target 0x26 received: '1FFF98A0' count: '02'
-//Target 0x2E received: '1FFF98A0' count: '02'
-//IC3 0x2E received: '1FFF98A0' sent 0xAB
-//Target 0x2E received: '1FFF98A0' count: '02'
-//Target 0x2E received: '1FFF98A0' count: '02'
-//Target 0x2E received: '1FFF98A0' count: '02'
-//Target 0x2E received: '1FFF98A0' count: '02'
-//Target 0x2D received: '1FFF98A0' count: '02'
-//IC4 0x2D received: '1FFF98A0' sent 0xAB
-//Target 0x2D received: '1FFF98A0' count: '02'
-//Target 0x2D received: '1FFF98A0' count: '02'
-//Target 0x2D received: '1FFF98A0' count: '02'
-//Target 0x2D received: '1FFF98A0' count: '02'
-//following continuous during receive
-//Target 0x26 received: '1FFF98A0' count: '02'
-
-
-
 
 //
 // 12nov2017
@@ -126,6 +33,48 @@ Target 0x2D received: '1FFF98A0' count: '02'
 //
 // Problem: don't ever see a reply for Wire1, even if using separate sets of pins
 
+//steady state receive
+//Target 0x26 received: 0x03 04 00 
+//Target 0x26 received: 0x03 00 00 
+//Target 0x26 received: 0x03 04 00 
+//Target 0x26 received: 0x03 00 00 
+
+//tune
+/*
+ * Target 0x27 received: 0x03 0D 00 
+Target 0x26 received: 0x02 A0 00 
+Target 0x27 received: 0x02 44 00 
+Target 0x27 received: 0x03 01 00 
+Target 0x27 received: 0x02 84 00 
+Target 0x27 received: 0x03 00 00 
+Target 0x26 received: 0x02 20 00 
+Target 0x27 received: 0x02 44 00 
+Target 0x27 received: 0x03 05 00 
+Target 0x27 received: 0x02 78 00 
+Target 0x27 received: 0x03 07 00 
+Target 0x27 received: 0x02 D8 00 
+Target 0x27 received: 0x03 09 00 
+Target 0x26 received: 0x02 A0 00 
+Target 0x27 received: 0x02 D8 00 
+Target 0x27 received: 0x03 01 00 
+Target 0x27 received: 0x02 58 00 
+Target 0x27 received: 0x03 01 00 
+Target 0x26 received: 0x02 20 00 
+Target 0x27 received: 0x02 D8 00 
+Target 0x27 received: 0x03 01 00 
+Target 0x27 received: 0x02 D8 00 
+Target 0x27 received: 0x03 04 00 
+Target 0x27 received: 0x02 98 00 
+Target 0x27 received: 0x03 07 00 
+Target 0x26 received: 0x02 A0 00 
+Target 0x27 received: 0x02 68 00 
+Target 0x27 received: 0x03 02 00 
+Target 0x27 received: 0x02 A8 00 
+Target 0x27 received: 0x03 01 00 
+Target 0x27 received: 0x02 28 00 
+Target 0x27 received: 0x03 00 00 
+Target 0x26 received: 0x02 20 00 
+*/
 
 #include <i2c_t3.h>
 #include "device_def.h"
@@ -174,12 +123,26 @@ void loop()
     // print received data
     if(received) {
         digitalWrite(LED_BUILTIN,HIGH);
-        Serial.printf("Target 0x%02X received: '%02X' count: '%02X'\n", target, (char*)databuf, received);
+        Serial.printf("Target 0x%02X received: ", target);  
+        PrintHex8((uint8_t*)databuf, 3);
+        Serial.printf("\n");
         received = 0;
         digitalWrite(LED_BUILTIN,LOW);
     }
 }
 
+
+
+//https://forum.arduino.cc/index.php?topic=38107.0
+void PrintHex8(uint8_t *data, uint8_t length) // prints 8-bit data in hex with leading zeroes
+{
+       Serial.print("0x"); 
+       for (int i=0; i<length; i++) { 
+         if (data[i]<0x10) {Serial.print("0");} 
+         Serial.print(data[i],HEX); 
+         Serial.print(" "); 
+       }
+}
 
 
 //
