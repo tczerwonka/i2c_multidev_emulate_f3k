@@ -48,10 +48,70 @@
 //Target 0x2E received: '1FFF99AC'
 //Target 0x2D received: '1FFF99AC'
 //IC4 0x2D received: '1FFF99AC'
+//Target 0x2D received: '1FFF99AC'Target 0x27 received: '1FFF98A0' count: '02'
+Target 0x27 received: '1FFF98A0' count: '02'
+Target 0x27 received: '1FFF98A0' count: '01'
+IC16 0x27 received: '1FFF98A0' sent 0xAB
+Target 0x27 received: '1FFF98A0' count: '02'
+Target 0x27 received: '1FFF98A0' count: '02'
+Target 0x27 received: '1FFF98A0' count: '02'
+Target 0x26 received: '1FFF98A0' count: '02'
+Target 0x26 received: '1FFF98A0' count: '02'
+Target 0x26 received: '1FFF98A0' count: '01'
+asdf
+IC13 0x26 received: '1FFF98A0' sent 0xAB
+Target 0x26 received: '1FFF98A0' count: '02'
+Target 0x26 received: '1FFF98A0' count: '02'
+Target 0x26 received: '1FFF98A0' count: '02'
+Target 0x26 received: '1FFF98A0' count: '02'
+Target 0x2E received: '1FFF98A0' count: '02'
+IC3 0x2E received: '1FFF98A0' sent 0xAB
+Target 0x2E received: '1FFF98A0' count: '02'
+Target 0x2E received: '1FFF98A0' count: '02'
+Target 0x2E received: '1FFF98A0' count: '02'
+Target 0x2E received: '1FFF98A0' count: '02'
+Target 0x2D received: '1FFF98A0' count: '02'
+IC4 0x2D received: '1FFF98A0' sent 0xAB
+Target 0x2D received: '1FFF98A0' count: '02'
+Target 0x2D received: '1FFF98A0' count: '02'
+Target 0x2D received: '1FFF98A0' count: '02'
+Target 0x2D received: '1FFF98A0' count: '02'
 //Target 0x2D received: '1FFF99AC'
 //Target 0x2D received: '1FFF99AC'
 //Target 0x2D received: '1FFF99AC'
-//Target 0x2D received: '1FFF99AC'
+
+//20jan2019
+//Target 0x27 received: '1FFF98A0' count: '02'
+//Target 0x27 received: '1FFF98A0' count: '02'
+//Target 0x27 received: '1FFF98A0' count: '01'
+//IC16 0x27 received: '1FFF98A0' sent 0xAB
+//Target 0x27 received: '1FFF98A0' count: '02'
+//Target 0x27 received: '1FFF98A0' count: '02'
+//Target 0x27 received: '1FFF98A0' count: '02'
+//Target 0x26 received: '1FFF98A0' count: '02'
+//Target 0x26 received: '1FFF98A0' count: '02'
+//Target 0x26 received: '1FFF98A0' count: '01'
+//asdf
+//IC13 0x26 received: '1FFF98A0' sent 0xAB
+//Target 0x26 received: '1FFF98A0' count: '02'
+//Target 0x26 received: '1FFF98A0' count: '02'
+//Target 0x26 received: '1FFF98A0' count: '02'
+//Target 0x26 received: '1FFF98A0' count: '02'
+//Target 0x2E received: '1FFF98A0' count: '02'
+//IC3 0x2E received: '1FFF98A0' sent 0xAB
+//Target 0x2E received: '1FFF98A0' count: '02'
+//Target 0x2E received: '1FFF98A0' count: '02'
+//Target 0x2E received: '1FFF98A0' count: '02'
+//Target 0x2E received: '1FFF98A0' count: '02'
+//Target 0x2D received: '1FFF98A0' count: '02'
+//IC4 0x2D received: '1FFF98A0' sent 0xAB
+//Target 0x2D received: '1FFF98A0' count: '02'
+//Target 0x2D received: '1FFF98A0' count: '02'
+//Target 0x2D received: '1FFF98A0' count: '02'
+//Target 0x2D received: '1FFF98A0' count: '02'
+//following continuous during receive
+//Target 0x26 received: '1FFF98A0' count: '02'
+
 
 
 
@@ -68,6 +128,7 @@
 
 
 #include <i2c_t3.h>
+#include "device_def.h"
 
 // Function prototypes
 void receiveEvent(size_t len);
@@ -105,6 +166,7 @@ void setup()
   Wire1.onRequest(requestEvent1);
 
   Serial.begin(115200);
+  Serial.printf("starting\n");
 }
 
 void loop()
@@ -112,7 +174,7 @@ void loop()
     // print received data
     if(received) {
         digitalWrite(LED_BUILTIN,HIGH);
-        Serial.printf("Target 0x%02X received: '%02X'\n", target, (char*)databuf);
+        Serial.printf("Target 0x%02X received: '%02X' count: '%02X'\n", target, (char*)databuf, received);
         received = 0;
         digitalWrite(LED_BUILTIN,LOW);
     }
@@ -131,7 +193,7 @@ void receiveEvent(size_t count)
 }
 
 void receiveEvent1(size_t count)
-{
+{ 
   target = Wire1.getRxAddr();  // getRxAddr() is used to obtain target address
   Wire1.read(databuf, count);  // copy Rx data to databuf
   received = count;           // set received flag to count, this triggers print in main loop
@@ -142,28 +204,28 @@ void receiveEvent1(size_t count)
 //    0x27
 void emu_ic16() {
   Wire.write(0xAB); // send buffer
-  Serial.printf("IC16 0x%02X received: '%02X'\n", target, (char*)databuf);
+  Serial.printf("IC16 0x%02X received: '%02X' sent 0xAB\n", target, (char*)databuf);
 }
 
 // IC13
 //    0x26
 void emu_ic13() {
   Wire.write(0xAB); // send buffer
-  Serial.printf("IC13 0x%02X received: '%02X'\n", target, (char*)databuf);
+  Serial.printf("IC13 0x%02X received: '%02X' sent 0xAB\n", target, (char*)databuf);
 }
 
 //IC3
 //  0x2e
 void emu_ic3() {
   Wire1.write(0xAB); // send buffer
-  Serial.printf("IC3 0x%02X received: '%02X'\n", target, (char*)databuf);
+  Serial.printf("IC3 0x%02X received: '%02X' sent 0xAB\n", target, (char*)databuf);
 }
 
 //IC4
 //  0x2d
 void emu_ic4() {
   Wire1.write(0xAB); // send buffer
-  Serial.printf("IC4 0x%02X received: '%02X'\n", target, (char*)databuf);
+  Serial.printf("IC4 0x%02X received: '%02X' sent 0xAB\n", target, (char*)databuf);
 }
 
 
@@ -173,10 +235,11 @@ void emu_ic4() {
 //
 void requestEvent(void)
 {
-  if (target == 0x27) {
+  if (target == IC16) {
     emu_ic16();
   }
   if (target == 0x26) {
+    Serial.printf("asdf\n");
     emu_ic13();
   }
 }
@@ -185,10 +248,10 @@ void requestEvent(void)
 
 void requestEvent1(void)
 {
-  if (target == 0x2e) {
+  if (target == IC3) {
     emu_ic3();
   }
-  if (target == 0x2d) {
+  if (target == IC4) {
     emu_ic4();
   }
 }
