@@ -16,3 +16,7 @@ on the PA100 board -- which makes sense -- I have no PA board...
 
 So...either spend $16 at digikey, mess around with wiring the chips
 up and see what else I'm missing or make an arduino answer synthetically.
+
+This relies on the following project:
+
+https://github.com/nox771/i2c_t3
