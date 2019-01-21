@@ -250,15 +250,25 @@ void requestEvent1(void)
 }
 
 
+//0x27
+//PCA9555
+//tuner control
+//cmd 0x02 -- output 0 -- all L
+//cmd 0x03 -- output 1 -- all C
 void decode_ic16(void)
 {
         PrintHex8((uint8_t*)databuf, 2);
 }
 
+
+
+//0x26
 void decode_ic13(void)
 {
         PrintHex8((uint8_t*)databuf, 2);
 }
+
+
 
 void decode_ic3(void)
 {
