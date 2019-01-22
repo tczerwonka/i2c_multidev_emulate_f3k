@@ -34,46 +34,46 @@
 // Problem: don't ever see a reply for Wire1, even if using separate sets of pins
 
 //steady state receive
-//Target 0x26 received: 0x03 04 00 
-//Target 0x26 received: 0x03 00 00 
-//Target 0x26 received: 0x03 04 00 
-//Target 0x26 received: 0x03 00 00 
+//Target 0x26 received: 0x03 04 00
+//Target 0x26 received: 0x03 00 00
+//Target 0x26 received: 0x03 04 00
+//Target 0x26 received: 0x03 00 00
 
 //tune
 /*
- * Target 0x27 received: 0x03 0D 00 
-Target 0x26 received: 0x02 A0 00 
-Target 0x27 received: 0x02 44 00 
-Target 0x27 received: 0x03 01 00 
-Target 0x27 received: 0x02 84 00 
-Target 0x27 received: 0x03 00 00 
-Target 0x26 received: 0x02 20 00 
-Target 0x27 received: 0x02 44 00 
-Target 0x27 received: 0x03 05 00 
-Target 0x27 received: 0x02 78 00 
-Target 0x27 received: 0x03 07 00 
-Target 0x27 received: 0x02 D8 00 
-Target 0x27 received: 0x03 09 00 
-Target 0x26 received: 0x02 A0 00 
-Target 0x27 received: 0x02 D8 00 
-Target 0x27 received: 0x03 01 00 
-Target 0x27 received: 0x02 58 00 
-Target 0x27 received: 0x03 01 00 
-Target 0x26 received: 0x02 20 00 
-Target 0x27 received: 0x02 D8 00 
-Target 0x27 received: 0x03 01 00 
-Target 0x27 received: 0x02 D8 00 
-Target 0x27 received: 0x03 04 00 
-Target 0x27 received: 0x02 98 00 
-Target 0x27 received: 0x03 07 00 
-Target 0x26 received: 0x02 A0 00 
-Target 0x27 received: 0x02 68 00 
-Target 0x27 received: 0x03 02 00 
-Target 0x27 received: 0x02 A8 00 
-Target 0x27 received: 0x03 01 00 
-Target 0x27 received: 0x02 28 00 
-Target 0x27 received: 0x03 00 00 
-Target 0x26 received: 0x02 20 00 
+   Target 0x27 received: 0x03 0D 00
+  Target 0x26 received: 0x02 A0 00
+  Target 0x27 received: 0x02 44 00
+  Target 0x27 received: 0x03 01 00
+  Target 0x27 received: 0x02 84 00
+  Target 0x27 received: 0x03 00 00
+  Target 0x26 received: 0x02 20 00
+  Target 0x27 received: 0x02 44 00
+  Target 0x27 received: 0x03 05 00
+  Target 0x27 received: 0x02 78 00
+  Target 0x27 received: 0x03 07 00
+  Target 0x27 received: 0x02 D8 00
+  Target 0x27 received: 0x03 09 00
+  Target 0x26 received: 0x02 A0 00
+  Target 0x27 received: 0x02 D8 00
+  Target 0x27 received: 0x03 01 00
+  Target 0x27 received: 0x02 58 00
+  Target 0x27 received: 0x03 01 00
+  Target 0x26 received: 0x02 20 00
+  Target 0x27 received: 0x02 D8 00
+  Target 0x27 received: 0x03 01 00
+  Target 0x27 received: 0x02 D8 00
+  Target 0x27 received: 0x03 04 00
+  Target 0x27 received: 0x02 98 00
+  Target 0x27 received: 0x03 07 00
+  Target 0x26 received: 0x02 A0 00
+  Target 0x27 received: 0x02 68 00
+  Target 0x27 received: 0x03 02 00
+  Target 0x27 received: 0x02 A8 00
+  Target 0x27 received: 0x03 01 00
+  Target 0x27 received: 0x02 28 00
+  Target 0x27 received: 0x03 00 00
+  Target 0x26 received: 0x02 20 00
 */
 
 
@@ -90,6 +90,10 @@ Target 0x26 received: 0x02 20 00
 // Function prototypes
 void receiveEvent(size_t len);
 void requestEvent(void);
+void decode_ic16(void);
+void decode_ic13(void);
+void decode_ic3(void);
+void decode_ic4(void);
 
 // address of requested device
 int caller, request;
@@ -99,6 +103,7 @@ int caller, request;
 uint8_t databuf[MEM_LEN];
 volatile uint8_t target;
 volatile uint8_t received;
+
 
 //
 // Setup
@@ -128,37 +133,37 @@ void setup()
 
 void loop()
 {
-    // print received data
-    if(received) {
-        digitalWrite(LED_BUILTIN,HIGH);
+  // print received data
+  if (received) {
+    digitalWrite(LED_BUILTIN, HIGH);
 
-	switch (target) {
-		case IC16:
-			decode_ic16();
-		break;
+    switch (target) {
+      case IC16:
+        decode_ic16();
+        break;
 
-		case IC13:
-			decode_ic13();
-		break;
+      case IC13:
+        decode_ic13();
+        break;
 
-		case IC3:
-			decode_ic3();
-		break;
+      case IC3:
+        decode_ic3();
+        break;
 
-		case IC4:
-			decode_ic4();
-		break;
+      case IC4:
+        decode_ic4();
+        break;
 
-		default:
-        		Serial.printf("Unknown 0x%02X received: ", target);  
-        		PrintHex8((uint8_t*)databuf, 3);
-        		Serial.printf("\n");
-		break;
-	}
-
-        received = 0;
-        digitalWrite(LED_BUILTIN,LOW);
+      default:
+        Serial.printf("Unknown 0x%02X received: ", target);
+        PrintHex8((uint8_t*)databuf, 3);
+        Serial.printf("\n");
+        break;
     }
+
+    received = 0;
+    digitalWrite(LED_BUILTIN, LOW);
+  }
 }
 
 
@@ -166,12 +171,14 @@ void loop()
 //https://forum.arduino.cc/index.php?topic=38107.0
 void PrintHex8(uint8_t *data, uint8_t length) // prints 8-bit data in hex with leading zeroes
 {
-       Serial.print("0x"); 
-       for (int i=0; i<length; i++) { 
-         if (data[i]<0x10) {Serial.print("0");} 
-         Serial.print(data[i],HEX); 
-         Serial.print(" "); 
-       }
+  Serial.print("0x");
+  for (int i = 0; i < length; i++) {
+    if (data[i] < 0x10) {
+      Serial.print("0");
+    }
+    Serial.print(data[i], HEX);
+    Serial.print(" ");
+  }
 }
 
 
@@ -186,15 +193,14 @@ void receiveEvent(size_t count)
 }
 
 void receiveEvent1(size_t count)
-{ 
+{
   target = Wire1.getRxAddr();  // getRxAddr() is used to obtain target address
   Wire1.read(databuf, count);  // copy Rx data to databuf
   received = count;           // set received flag to count, this triggers print in main loop
 }
 
 
-// IC16
-//    0x27
+
 void emu_ic16() {
   Wire.write(0xAB); // send buffer
   Serial.printf("IC16 0x%02X received: '%02X' sent 0xAB\n", target, (char*)databuf);
@@ -255,29 +261,86 @@ void requestEvent1(void)
 //tuner control
 //cmd 0x02 -- output 0 -- all L
 //cmd 0x03 -- output 1 -- all C
-void decode_ic16(void)
-{
-        PrintHex8((uint8_t*)databuf, 2);
+ 
+void decode_ic16() {
+  Serial.printf("IC16: ");
+  PrintHex8((uint8_t*)databuf, 2);
+  Serial.printf("\n");
 }
-
-
 
 //0x26
-void decode_ic13(void)
-{
+void decode_ic13() {
+  //Serial.printf("IC13: ");
+
+  if (databuf[0] == OUTPUT0) {
+    switch (databuf[1]) {
+      case LPF0:
+        Serial.printf("LPF0\n");
+        break;
+      case LPF1:
+        Serial.printf("LPF1\n");
+        break;
+      case LPF2:
+        Serial.printf("LPF2\n");
+        break;
+      case LPF3:
+        Serial.printf("LPF3\n");
+        break;
+      case LPF4:
+        Serial.printf("LPF4\n");
+        break;
+      case LPF5:
+        Serial.printf("LPF5\n");
+        break;
+      case LPF6:
+        Serial.printf("LPF6\n");
+        break;
+      case LOWZ:
+        Serial.printf("LOWZ\n");
+        break;    
+      default:
+        Serial.printf("Unknown received: ");
         PrintHex8((uint8_t*)databuf, 2);
+        break;
+    } //switch
+  } // if OUTPUT1
+  
+  if (databuf[0] == OUTPUT1) {
+    switch (databuf[1]) {
+      case ATU:
+        //Serial.printf("ATU\n");
+        break;
+      case ATTN:
+        Serial.printf("ATTN\n");
+        break;
+      case FANON:
+        //Serial.printf("FANON\n");
+        break;
+      case FOUR:
+        //Serial.printf("4-unknown\n");
+        break;
+      default:
+        Serial.printf("Unknown received: ");
+        PrintHex8((uint8_t*)databuf, 2);
+        break;
+    } //switch
+  } // if OUTPUT1
+  //Serial.printf("OUTPUT0 ");
+  //PrintHex8((uint8_t*)databuf, 2);
+  //Serial.printf("\n");
 }
-
-
 
 void decode_ic3(void)
 {
-        PrintHex8((uint8_t*)databuf, 2);
+  PrintHex8((uint8_t*)databuf, 2);
+  Serial.printf("\n");
+
 }
 
 void decode_ic4(void)
 {
-        PrintHex8((uint8_t*)databuf, 2);
+  PrintHex8((uint8_t*)databuf, 2);
+  Serial.printf("\n");
 }
 
 
