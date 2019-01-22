@@ -33,55 +33,37 @@
 //
 // Problem: don't ever see a reply for Wire1, even if using separate sets of pins
 
-//steady state receive
-//Target 0x26 received: 0x03 04 00
-//Target 0x26 received: 0x03 00 00
-//Target 0x26 received: 0x03 04 00
-//Target 0x26 received: 0x03 00 00
 
-//tune
+
 /*
-   Target 0x27 received: 0x03 0D 00
-  Target 0x26 received: 0x02 A0 00
-  Target 0x27 received: 0x02 44 00
-  Target 0x27 received: 0x03 01 00
-  Target 0x27 received: 0x02 84 00
-  Target 0x27 received: 0x03 00 00
-  Target 0x26 received: 0x02 20 00
-  Target 0x27 received: 0x02 44 00
-  Target 0x27 received: 0x03 05 00
-  Target 0x27 received: 0x02 78 00
-  Target 0x27 received: 0x03 07 00
-  Target 0x27 received: 0x02 D8 00
-  Target 0x27 received: 0x03 09 00
-  Target 0x26 received: 0x02 A0 00
-  Target 0x27 received: 0x02 D8 00
-  Target 0x27 received: 0x03 01 00
-  Target 0x27 received: 0x02 58 00
-  Target 0x27 received: 0x03 01 00
-  Target 0x26 received: 0x02 20 00
-  Target 0x27 received: 0x02 D8 00
-  Target 0x27 received: 0x03 01 00
-  Target 0x27 received: 0x02 D8 00
-  Target 0x27 received: 0x03 04 00
-  Target 0x27 received: 0x02 98 00
-  Target 0x27 received: 0x03 07 00
-  Target 0x26 received: 0x02 A0 00
-  Target 0x27 received: 0x02 68 00
-  Target 0x27 received: 0x03 02 00
-  Target 0x27 received: 0x02 A8 00
-  Target 0x27 received: 0x03 01 00
-  Target 0x27 received: 0x02 28 00
-  Target 0x27 received: 0x03 00 00
-  Target 0x26 received: 0x02 20 00
+ * startup
+IC16: 0x06 00 
+IC16: 0x02 AB 
+IC16: 0x02 AB 
+IC13 0x27 received: 0x02 AB 00 00 00 00 00 00  sent 0xAB
+IC16: 0x06 00 
+IC16: 0x07 00 
+IC16: 0x02 00 
+IC13 OUTPUT0 Unknown received: 0x02 AB 
+IC13 OUTPUT0 Unknown received: 0x02 AB 
+asdf
+IC13 0x26 received: 0x02 AB 00 00 00 00 00 00  sent 0xAB
+IC13 OUTPUT0 Unknown received: 0x02 00 
+Unknown received IC3: 0x00 AB 
+IC13 0x2E received: 0x00 AB 00 00 00 00 00 00  sent 0xAB
+Unknown received IC3: 0x00 00 
+Unknown received IC3: 0x20 FF 
+Unknown received IC3: 0x40 00 
+Unknown received IC3: 0x60 FF 
+bias off
+DIGOUT2
+IC13 0x2D received: 0x00 AB 00 00 00 00 00 00  sent 0xAB
+bias off
+DIGOUT2
+A0RDAC
+A1RDAC
+IC4 Unknown received: 0x60 FF 
 */
-
-
-//0x26 is PCA9555 on sheet 3 -- LPF and atu/attn/fan/tx
-//0x27 is PCA9555 on sheet 6 -- tuner, output 0 is L, output 1 is C
-
-
-
 
 
 #include <i2c_t3.h>
@@ -181,6 +163,11 @@ void PrintHex8(uint8_t *data, uint8_t length) // prints 8-bit data in hex with l
   }
 }
 
+void adcval(uint8_t *data) // prints 8-bit data in hex with leading zeroes
+{
+    Serial.print(data[1], HEX);
+}
+
 
 //
 // handle Rx Event (incoming I2C data)
@@ -201,31 +188,9 @@ void receiveEvent1(size_t count)
 
 
 
-void emu_ic16() {
-  Wire.write(0xAB); // send buffer
-  Serial.printf("IC16 0x%02X received: '%02X' sent 0xAB\n", target, (char*)databuf);
-}
 
-// IC13
-//    0x26
-void emu_ic13() {
-  Wire.write(0xAB); // send buffer
-  Serial.printf("IC13 0x%02X received: '%02X' sent 0xAB\n", target, (char*)databuf);
-}
 
-//IC3
-//  0x2e
-void emu_ic3() {
-  Wire1.write(0xAB); // send buffer
-  Serial.printf("IC3 0x%02X received: '%02X' sent 0xAB\n", target, (char*)databuf);
-}
 
-//IC4
-//  0x2d
-void emu_ic4() {
-  Wire1.write(0xAB); // send buffer
-  Serial.printf("IC4 0x%02X received: '%02X' sent 0xAB\n", target, (char*)databuf);
-}
 
 
 
@@ -256,91 +221,10 @@ void requestEvent1(void)
 }
 
 
-//0x27
-//PCA9555
-//tuner control
-//cmd 0x02 -- output 0 -- all L
-//cmd 0x03 -- output 1 -- all C
- 
-void decode_ic16() {
-  Serial.printf("IC16: ");
-  PrintHex8((uint8_t*)databuf, 2);
-  Serial.printf("\n");
-}
 
-//0x26
-void decode_ic13() {
-  //Serial.printf("IC13: ");
 
-  if (databuf[0] == OUTPUT0) {
-    switch (databuf[1]) {
-      case LPF0:
-        Serial.printf("LPF0\n");
-        break;
-      case LPF1:
-        Serial.printf("LPF1\n");
-        break;
-      case LPF2:
-        Serial.printf("LPF2\n");
-        break;
-      case LPF3:
-        Serial.printf("LPF3\n");
-        break;
-      case LPF4:
-        Serial.printf("LPF4\n");
-        break;
-      case LPF5:
-        Serial.printf("LPF5\n");
-        break;
-      case LPF6:
-        Serial.printf("LPF6\n");
-        break;
-      case LOWZ:
-        Serial.printf("LOWZ\n");
-        break;    
-      default:
-        Serial.printf("Unknown received: ");
-        PrintHex8((uint8_t*)databuf, 2);
-        break;
-    } //switch
-  } // if OUTPUT1
-  
-  if (databuf[0] == OUTPUT1) {
-    switch (databuf[1]) {
-      case ATU:
-        //Serial.printf("ATU\n");
-        break;
-      case ATTN:
-        Serial.printf("ATTN\n");
-        break;
-      case FANON:
-        //Serial.printf("FANON\n");
-        break;
-      case FOUR:
-        //Serial.printf("4-unknown\n");
-        break;
-      default:
-        Serial.printf("Unknown received: ");
-        PrintHex8((uint8_t*)databuf, 2);
-        break;
-    } //switch
-  } // if OUTPUT1
-  //Serial.printf("OUTPUT0 ");
-  //PrintHex8((uint8_t*)databuf, 2);
-  //Serial.printf("\n");
-}
 
-void decode_ic3(void)
-{
-  PrintHex8((uint8_t*)databuf, 2);
-  Serial.printf("\n");
 
-}
 
-void decode_ic4(void)
-{
-  PrintHex8((uint8_t*)databuf, 2);
-  Serial.printf("\n");
-}
 
 
