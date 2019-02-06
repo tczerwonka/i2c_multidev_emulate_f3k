@@ -1,8 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////
 //pca9555.ino
 //
-//0x26 is IC13 PCA9555 on sheet 3 -- LPF and atu/attn/fan/tx
-//0x27 is IC16 PCA9555 on sheet 6 -- tuner, output 0 is L, output 1 is C
+//Remote 16-Bit I2C And SMBus I/O Expander
+//
+//0x26 is IC13 PCA9555 on sheet 3 -- LPF and atu/attn/fan/tx -- address 6 on schematic
+//0x27 is IC16 PCA9555 on sheet 6 -- tuner, output 0 is L, output 1 is C -- address 7 on schematic
 ////////////////////////////////////////////////////////////////////////////
 
 

@@ -1,4 +1,13 @@
+//on NTRX:
+//0x2e is IC3 -- AD5263 -- final bias -- address 2 on schematic
+//0x2d is IC4 -- AD5263 -- driver bias -- address 1 on schematic
+//0x26 is IC13 PCA9555 on sheet 3 -- LPF and atu/attn/fan/tx -- address 6 on schematic
+//0x27 is IC16 PCA9555 on sheet 6 -- tuner, output 0 is L, output 1 is C -- address 7 on schematic
+//0x49 is IC11 ADS8728 on sheet 3 -- 8ch ADC - 610uV/bit
+//caution -- is there an 0x48?
 
+// not NTRX:
+// TRX IC24 I2C 0xA0
 
 
 // device_def.h
@@ -14,6 +23,7 @@
   #define IC13  0x26
   #define IC3   0x2e
   #define IC4   0x2d
+  #define IC11  0x49
 
   #define CLEAR 0
 

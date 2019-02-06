@@ -1,0 +1,33 @@
+////////////////////////////////////////////////////////////////////////////
+//ads7828.ino
+//
+// 12-Bit, 8-Channel ADC
+// 
+//
+//A0 -- high
+//A1 -- low
+// 0x49 is IC11 on sheet 3/6
+//Unknown 0x49 received: 0x08 FF 00 
+//Unknown 0x48 received: 0x19 FF 00 
+////////////////////////////////////////////////////////////////////////////
+//max_cmd_depth: 3  fwcThread::ReadPAADC(3) = 0
+//
+// CH0 - final bias
+// CH1 - DRV bias
+// CH2 - 1.25v nominal -- probably input voltage measure, btw 11x divider
+// CH3 - TEMP
+// CH4 - REV
+// CH5 - FWD
+// CH6 - PHASE
+// CH7 - MAG
+////////////////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////////////////
+void decode_ic11() {
+  Serial.printf("IC11: ");
+  PrintHex8((uint8_t*)databuf, 2);
+  Serial.printf("\n");
+}
